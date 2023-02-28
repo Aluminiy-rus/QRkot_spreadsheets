@@ -8,18 +8,19 @@ FORMAT = "%Y/%m/%d %H:%M:%S"
 NOW_DATE_TIME = datetime.now().strftime(FORMAT)
 TITLE_MESSAGE = f"Отчет от {NOW_DATE_TIME}"
 SPREEDSHEET_BODY = {
-        "properties": {"title": TITLE_MESSAGE, "locale": "ru_RU"},
-        "sheets": [
-            {
-                "properties": {
-                    "sheetType": "GRID",
-                    "sheetId": 0,
-                    "title": "Лист1",
-                    "gridProperties": {"rowCount": 100, "columnCount": 3},
-                }
+    "properties": {"title": TITLE_MESSAGE, "locale": "ru_RU"},
+    "sheets": [
+        {
+            "properties": {
+                "sheetType": "GRID",
+                "sheetId": 0,
+                "title": "Лист1",
+                "gridProperties": {"rowCount": 100, "columnCount": 3},
             }
-        ],
-    }
+        }
+    ],
+}
+
 
 async def spreadsheets_create(wrapper_services: Aiogoogle) -> str:
     service = await wrapper_services.discover("sheets", "v4")
