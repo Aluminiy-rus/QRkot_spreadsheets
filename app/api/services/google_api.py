@@ -5,10 +5,8 @@ from aiogoogle import Aiogoogle
 from app.core.config import settings
 
 FORMAT = "%Y/%m/%d %H:%M:%S"
-NOW_DATE_TIME = datetime.now().strftime(FORMAT)
-TITLE_MESSAGE = f"Отчет от {NOW_DATE_TIME}"
 SPREEDSHEET_BODY = {
-    "properties": {"title": TITLE_MESSAGE, "locale": "ru_RU"},
+    "properties": {"title": "default_title", "locale": "ru_RU"},
     "sheets": [
         {
             "properties": {
@@ -23,6 +21,9 @@ SPREEDSHEET_BODY = {
 
 
 async def spreadsheets_create(wrapper_services: Aiogoogle) -> str:
+    now_date_time = datetime.now().strftime(FORMAT)
+    title_message = f"Отчет от {now_date_time}"
+    SPREEDSHEET_BODY["properties"]["title"] = title_message
     service = await wrapper_services.discover("sheets", "v4")
     spreadsheet_body = SPREEDSHEET_BODY
     response = await wrapper_services.as_service_account(
